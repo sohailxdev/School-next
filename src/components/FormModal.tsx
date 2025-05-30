@@ -137,30 +137,30 @@ const FormModal = ({
       }
     }, [state, router]);
 
-  if (type === "delete" && id) {
-    return (
-      <form action={formAction} className="p-4 flex flex-col gap-4">
-        <input type="text | number" name="id" value={id} hidden />
-        <span className="text-center font-medium">
-          All data will be lost. Are you sure you want to delete this {table}?
-        </span>
-        <button className="bg-red-700 text-white py-2 px-4 rounded-md border-none w-max self-center">
-          Delete
-        </button>
-      </form>
-    );
-  } else if (type === "create" || type === "update") {
-    const formFunc = forms[table];
-    if (!formFunc) {
-      return <div>Form not found for "{table}"</div>;
+    if (type === "delete" && id) {
+      return (
+        <form action={formAction} className="p-4 flex flex-col gap-4">
+          <input type="text | number" name="id" value={id} hidden />
+          <span className="text-center font-medium">
+            All data will be lost. Are you sure you want to delete this {table}?
+          </span>
+          <button className="bg-red-700 text-white py-2 px-4 rounded-md border-none w-max self-center">
+            Delete
+          </button>
+        </form>
+      );
+    } else if (type === "create" || type === "update") {
+      const formFunc = forms[table];
+      if (!formFunc) {
+        return <div>Form not found for {table}</div>;
+      }
+      return formFunc(setOpen, type, data, relatedData);
+    } else {
+      return "Form not found!";
     }
-    return formFunc(setOpen, type, data, relatedData);
-  } else {
-    return "Form not found!";
-  }
-};
+  };
 
-  return (  
+  return (
     <>
       <button
         className={`${size} flex items-center justify-center rounded-full ${bgColor}`}
